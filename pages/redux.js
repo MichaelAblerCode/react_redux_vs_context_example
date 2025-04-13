@@ -1,15 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+// Redux hooks for accessing store data and dispatching actions
 import { Provider, useSelector, useDispatch } from 'react-redux';
+// Modern Redux utilities from @reduxjs/toolkit
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 
-// Step 1: Create Redux slices
-// Counter slice
+/*
+ * Redux Implementation
+ * Redux is best suited for:
+ * - Large scale applications
+ * - Complex state management
+ * - When you need middleware and dev tools
+ * - When state updates follow specific patterns
+ */
+
+// Step 1: Create Redux slices - A slice is a portion of Redux state and its reducers
 const counterSlice = createSlice({
   name: 'counter',
   initialState: { count: 0 },
+  // Reducers define how the state can be modified
   reducers: {
     increment: (state) => {
+      // Redux Toolkit allows us to write "mutating" logic in reducers
+      // It actually creates immutable updates behind the scenes
       state.count += 1;
     },
     decrement: (state) => {
@@ -21,7 +34,7 @@ const counterSlice = createSlice({
   },
 });
 
-// Theme slice
+// Theme slice - Another independent piece of state
 const themeSlice = createSlice({
   name: 'theme',
   initialState: { theme: 'light' },
@@ -32,22 +45,26 @@ const themeSlice = createSlice({
   },
 });
 
-// Step 2: Create the Redux store
+// Step 2: Configure the Redux store - Single source of truth for the entire app
 const store = configureStore({
+  // Combine multiple reducers into one root reducer
   reducer: {
     counter: counterSlice.reducer,
     theme: themeSlice.reducer,
   },
 });
 
-// Step 3: Component to display and update counter
+// Step 3: Components using Redux hooks
 function CounterDisplay() {
+  // useSelector extracts data from the Redux store
   const count = useSelector((state) => state.counter.count);
+  // useDispatch returns a function to dispatch actions
   const dispatch = useDispatch();
 
   return (
     <div>
       <h2>Counter: {count}</h2>
+      {/* Dispatch actions using the slice's action creators */}
       <button onClick={() => dispatch(counterSlice.actions.increment())}>
         Increment
       </button>
