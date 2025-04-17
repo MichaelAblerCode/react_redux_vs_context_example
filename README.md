@@ -65,10 +65,10 @@ Both implementations feature:
 
    ```javascript
    const counterSlice = createSlice({
-     name: "counter",
+     name: 'counter',
      initialState: { count: 0 },
      reducers: {
-       increment: (state) => {
+       increment: state => {
          state.count += 1;
        },
        // ...
@@ -104,6 +104,7 @@ Both implementations feature:
 - Less performant for frequent updates
 - Limited dev tools
 - Can become messy in large apps
+- No built-in persistence; state resets on browser refresh unless manually handled (e.g., with 'localStorage')
 
 ### Redux
 
@@ -114,6 +115,7 @@ Both implementations feature:
 - Middleware support
 - Predictable state updates
 - Great for large applications
+- Automatic state persistence across browser refreshes with 'redux-persist'
 
 #### Cons
 

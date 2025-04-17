@@ -25,11 +25,12 @@ function AppProvider({ children }) {
   // useState hooks for local state management
   const [count, setCount] = useState(0);
   // State updater functions
-  const increment = () => setCount((prev) => prev + 1);
-  const decrement = () => setCount((prev) => prev - 1);
+  const increment = () => setCount(prev => prev + 1);
+  const decrement = () => setCount(prev => prev - 1);
 
   const [theme, setTheme] = useState('light');
-  const toggleTheme = () => setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+  const toggleTheme = () =>
+    setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
 
   // Bundle all values and functions into a single context value
   const contextValue = {
@@ -41,9 +42,7 @@ function AppProvider({ children }) {
   };
 
   return (
-    <AppContext.Provider value={contextValue}>
-      {children}
-    </AppContext.Provider>
+    <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>
   );
 }
 
@@ -86,7 +85,7 @@ function ThemeDisplay() {
 function ConditionalDisplay() {
   return (
     <AppContext.Consumer>
-      {(value) => (
+      {value => (
         <div>
           <h2>Conditional Display (via Consumer)</h2>
           {value.count > 0 ? (
